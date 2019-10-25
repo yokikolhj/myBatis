@@ -14,6 +14,7 @@ import com.shirly.data.base.UserExample;
 import com.shirly.data.base.UserExample.Criteria;
 import com.shirly.data.mapper.UserMapper;
 import com.shirly.data.model.DataResponse;
+import com.shirly.service.HomePageService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +22,8 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/homePage")
 @Api(tags = "首页相关接口")
 public class HomePageController {
+	@Autowired
+	private HomePageService sevice;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -42,6 +45,12 @@ public class HomePageController {
 		response.setData(user);
 		response.setMsg(s);
 		return response;
+	}
+	
+	@RequestMapping(value = "/getAllMenu", produces = "application/json; charset=utf-8", method = {RequestMethod.GET, RequestMethod.POST})
+	@ApiOperation(value = "获取所有菜单")
+	public DataResponse getAllMenu(HttpServletRequest req) {
+		return sevice.getMenus();
 	}
 	
 }
